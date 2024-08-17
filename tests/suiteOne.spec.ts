@@ -78,3 +78,16 @@ test('Click dropdown menu and assert options change', async ({ page }) => {
 
 });
 
+test('Locating elements in Web Tables', async ({ page }) => {
+  
+  await page.getByText('Tables & Data').click();
+  await page.getByText('Smart Table').click();
+
+  const targetRow = page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"})
+  await targetRow.locator('.nb-edit').click();
+  await page.locator('input-editor').getByPlaceholder('Age').clear();
+  await page.locator('input-editor').getByPlaceholder('Age').fill('30');
+  await page.locator('.nb-checkmark').click();
+
+  await expect(targetRow.locator('td').nth(6)).toHaveText('30'); 
+});
