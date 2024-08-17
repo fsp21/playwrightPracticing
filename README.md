@@ -1,1 +1,1 @@
-# playwrightPracticing
+# pwPracticeAppScripts
