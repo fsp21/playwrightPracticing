@@ -91,3 +91,31 @@ test('Locating elements in Web Tables', async ({ page }) => {
 
   await expect(targetRow.locator('td').nth(6)).toHaveText('30'); 
 });
+
+test('Validating filter in table', async ({ page }) => {
+  
+  await page.getByText('Tables & Data').click();
+  await page.getByText('Smart Table').click();
+  const ages = ["20", "30", "40", "2000"];
+  const ageSearchBox = page.locator('input-filter').getByPlaceholder('Age');
+
+  for (let age of ages){
+    await ageSearchBox.fill(age);
+    await page.waitForTimeout(500);
+    const allRows = page.locator('tbody tr');
+
+    for(let row of await allRows.all()){
+      const ageValue = await row.locator('td').last().textContent()
+
+      if(age == "2000"){
+        await expect(page.locator('tbody')).toContainText("No data found")
+      }
+      else{
+        expect(ageValue).toContain(age);
+      }
+      
+    }
+
+
+  }
+});
