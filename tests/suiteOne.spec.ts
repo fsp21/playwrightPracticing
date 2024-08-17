@@ -44,5 +44,37 @@ test.describe('Form Layouts Page', async () => {
     await expect(checkbox).not.toBeChecked();
 
   });
+
+});
+
+
+test('Click dropdown menu and assert options change', async ({ page }) => {
+  
+  // Storing the "theme dropdown" location and clicking it
+  const dropdownMenu = page.locator('ngx-header .select-button');
+  await dropdownMenu.click();
+
+  // Storing all locations of the dropdown options in an array
+  const dropdownOptions = await page.locator('nb-option').all();
+  
+  // Storing all text values of these options in an array for assertion after click
+  const dropdownOptionsText = await page.locator('nb-option').allTextContents();
+  
+  // Declaring i to use in the loop
+  let i = 0
+
+  // Clicking all dropdown menu options
+  for (const dropdownOption of dropdownOptions){
+    // Click each option
+    await dropdownOption.click();
+    
+    // Assert that the "dropdown menu" locator contains the text of the last selected option
+    expect(await dropdownMenu.textContent()).toContain(dropdownOptionsText[i]);
+    
+    // Condition to avoid clicking dropdown menu after finishing and increasing i to continue loop
+    if(i<3){
+    await dropdownMenu.click()};
+    i++ };
+
 });
 
