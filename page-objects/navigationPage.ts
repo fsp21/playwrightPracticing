@@ -24,7 +24,7 @@ export class NavigationPage {
         await this.formsLayout.click();
     }
 
-    async smartTablePagle(){
+    async smartTablePage(){
         await this.tablesAndData.click();
         await this.smartTable.click();
     }
@@ -34,6 +34,7 @@ export class NavigationPage {
 
         for(const title of titles){
         const menuItem = this.page.getByTitle(title, {exact: true})
+        await this.page.waitForLoadState('networkidle');
         await menuItem.click();
         expect(await menuItem.getAttribute('aria-expanded')).toBeTruthy();
         i++;

@@ -25,6 +25,12 @@ export class FormLayouts {
         await this.inlineForm.getByRole('checkbox', {name: "Remember me"}).check({force: true});
     }
 
+    /**
+     * This method will click Submit in "Using the Grid" card with email and password filled in
+     * @param email
+     * @param password 
+     * @param option 
+     */
     async submitUsingTheGridFormWithCredentialsAndSelectOption(email: string, password: string, option: string){
 
         await this.emailTextBox.fill(email)

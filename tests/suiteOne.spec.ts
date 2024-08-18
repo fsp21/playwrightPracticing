@@ -92,7 +92,7 @@ test('Click dropdown menu and assert options change', async ({ page }) => {
 test('Locating elements in Web Tables', async ({ page }) => {
   
     const navigateTo = new NavigationPage(page);
-    await navigateTo.smartTablePagle();
+    await navigateTo.smartTablePage();
 
   const targetRow = page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"})
   await targetRow.locator('.nb-edit').click();
@@ -106,7 +106,7 @@ test('Locating elements in Web Tables', async ({ page }) => {
 test('Validating filter in table', async ({ page }) => {
   
   const navigateTo = new NavigationPage(page);
-  await navigateTo.smartTablePagle();
+  await navigateTo.smartTablePage();
   const ages = ["20", "30", "40", "2000"];
   const ageSearchBox = page.locator('input-filter').getByPlaceholder('Age');
 
