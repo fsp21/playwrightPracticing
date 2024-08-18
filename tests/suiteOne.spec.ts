@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import * as playwrightTestPage from '../fixtures/playwrightTestPage.json'
 import { NavigationPage } from '../page-objects/navigationPage';
+import { FormLayouts } from '../page-objects/formLayouts';
 
 
 
@@ -8,6 +9,18 @@ test.beforeEach('Navigate to test page', async ({ page }) => {
   await page.goto(playwrightTestPage.url);
 });
 
+test('Testing Submitting through PMO', async ({ page }) =>{
+  const navigateTo = new NavigationPage(page);  
+  const formLayouts = new FormLayouts(page);
+  
+  await navigateTo.formLayoutsPage();
+  await formLayouts.submitUsingTheGridFormWithCredentialsAndSelectOption("test@test.net", "pAssw0rd1!$", "Option 1");
+  expect(await formLayouts.emailTextBox.inputValue()).toBe("test@test.net")
+  expect(await formLayouts.passwordTextBox.inputValue()).toBe("pAssw0rd1!$")
+  await expect(formLayouts.radioButton1).toBeChecked();
+  await expect(formLayouts.radioButton2).not.toBeChecked();
+  
+})
 
 test.describe('Form Layouts Page', async () => {
     
