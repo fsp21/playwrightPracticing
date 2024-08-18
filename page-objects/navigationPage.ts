@@ -1,9 +1,5 @@
 import { Locator, Page,expect } from "@playwright/test"
 
-const titles = ["Forms", "Modal & Overlays", "Extra Components",
-    "Charts", "Tables & Data", "Auth"
-]
-
 let i = 0
 
 export class NavigationPage {
@@ -12,6 +8,7 @@ export class NavigationPage {
     readonly formsLayout: Locator
     readonly tablesAndData: Locator
     readonly smartTable: Locator
+    readonly titles: string[]
     
     constructor(page: Page) {
         this.page = page;
@@ -19,6 +16,7 @@ export class NavigationPage {
         this.formsLayout = page.getByText('Form Layouts', {exact: true});
         this.tablesAndData = page.getByText('Tables & Data');
         this.smartTable = page.getByText('Smart Table');
+        this.titles = ["Forms", "Modal & Overlays", "Extra Components","Charts", "Tables & Data", "Auth"]
     }
 
     async formLayoutsPage(){
@@ -31,11 +29,9 @@ export class NavigationPage {
         await this.smartTable.click();
     }
 
-   
     async clickAllLinesPerTitleAndCheckIfOpened(){
-        const titles = ["Forms", "Modal & Overlays", "Extra Components",
-            "Charts", "Tables & Data", "Auth"
-        ]
+        const titles = this.titles
+
         for(const title of titles){
         const menuItem = this.page.getByTitle(title, {exact: true})
         await menuItem.click();

@@ -3,8 +3,6 @@ import * as playwrightTestPage from '../fixtures/playwrightTestPage.json'
 import { NavigationPage } from '../page-objects/navigationPage';
 import { FormLayouts } from '../page-objects/formLayouts';
 
-
-
 test.beforeEach('Navigate to test page', async ({ page }) => {
   await page.goto(playwrightTestPage.url);
 });
