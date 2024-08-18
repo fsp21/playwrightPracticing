@@ -1,5 +1,11 @@
 import { Page,expect } from "@playwright/test"
 
+const titles = ["Forms", "Modal & Overlays", "Extra Components",
+    "Charts", "Tables & Data", "Auth"
+]
+
+let i = 0
+
 export class NavigationPage {
     readonly page: Page
     
@@ -17,5 +23,18 @@ export class NavigationPage {
     async smartTablePagle(){
         await this.page.getByText('Tables & Data').click();
         await this.page.getByText('Smart Table').click();
+    }
+
+   
+    async getTitle(){
+        const titles = ["Forms", "Modal & Overlays", "Extra Components",
+            "Charts", "Tables & Data", "Auth"
+        ]
+        for(const title of titles){
+        const menuItem = await this.page.getByTitle(title, {exact: true})
+        await menuItem.click();
+        expect(await menuItem.getAttribute('aria-expanded')).toBeTruthy();
+        i++;
+    }
     }
 }
