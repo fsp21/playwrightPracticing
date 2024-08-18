@@ -1,19 +1,19 @@
 import { test, expect } from '@playwright/test';
 import * as playwrightTestPage from '../fixtures/playwrightTestPage.json'
+import { NavigationPage } from '../page-objects/navigationPage';
+
+
 
 test.beforeEach('Navigate to test page', async ({ page }) => {
   await page.goto(playwrightTestPage.url);
-
 });
 
 
 test.describe('Form Layouts Page', async () => {
     
   test.beforeEach('Click "Forms" and "Form Layouts"', async ({ page }) => {
-    await page.getByText('Forms', {exact: true}).click();
-    const formsDropdown = page.getByTitle('Forms', {exact: true});
-    expect(await formsDropdown.getAttribute('aria-expanded')).toContain('true');
-    await page.getByText('Form Layouts', {exact: true}).click();
+    const navigateTo = new NavigationPage(page);
+    await navigateTo.formLayoutsPage();
   });
 
   test('Fill in Email textbox from "Using the Grid" nb-card', async ({ page }) => {
@@ -80,8 +80,8 @@ test('Click dropdown menu and assert options change', async ({ page }) => {
 
 test('Locating elements in Web Tables', async ({ page }) => {
   
-  await page.getByText('Tables & Data').click();
-  await page.getByText('Smart Table').click();
+    const navigateTo = new NavigationPage(page);
+    await navigateTo.smartTablePagle();
 
   const targetRow = page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"})
   await targetRow.locator('.nb-edit').click();
@@ -94,8 +94,8 @@ test('Locating elements in Web Tables', async ({ page }) => {
 
 test('Validating filter in table', async ({ page }) => {
   
-  await page.getByText('Tables & Data').click();
-  await page.getByText('Smart Table').click();
+  const navigateTo = new NavigationPage(page);
+  await navigateTo.smartTablePagle();
   const ages = ["20", "30", "40", "2000"];
   const ageSearchBox = page.locator('input-filter').getByPlaceholder('Age');
 
@@ -113,9 +113,6 @@ test('Validating filter in table', async ({ page }) => {
       else{
         expect(ageValue).toContain(age);
       }
-      
     }
-
-
   }
 });
