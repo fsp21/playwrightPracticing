@@ -15,7 +15,5 @@ test('Navigate to different options from the side menu', async ({page}) => {
 
 test("Open all menus and check if they're opened", async ({page}) => {
     const navigateTo = new NavigationPage(page);
-    await navigateTo.getTitle();
-    // await navigateTo.formLayoutsPage();
-    // await navigateTo.smartTablePagle();
+    await navigateTo.clickAllLinesPerTitleAndCheckIfOpened();
 })
